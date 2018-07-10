@@ -3,7 +3,7 @@ import socket
 import struct
 import math
 import matplotlib.pyplot as plt
-import numpy as np
+# import numpy as np
 # import pyformulas as pf
 
 pkt = ['header', 'daddr', 'lsaddr', 'mlen', 'gid', 'hid',
@@ -37,7 +37,13 @@ def main(ip='192.168.100.112',pn=44000):
 		plt.ion()
 		fig = plt.figure()
 		a1 = fig.add_subplot(1,3,1)
-		a2 = fig.add_subplot
+		line1, = a1.plot(list(range(100)), [0]*100)
+
+		a2 = fig.add_subplot(2,3,1)
+		line2, = a2.plot(list(range(100)), [0]*100)
+
+		a3 = fig.add_subplot(3,3,1)
+		line3, = a3.plot(list(range(100)), [0]*100)
 		while(True):
 			data = sck.recv(128)
 			if(len(data) != 1):
@@ -60,16 +66,17 @@ def main(ip='192.168.100.112',pn=44000):
 				counter = length*3
 				for id in samples.keys():
 					for i in range(1, counter + 1, 3):
-						plt.subplot(3, length, i)
-						plt.plot(samples[id]["tem"][-100:])
+						# plt.subplot(3, length, i)
+						line1.set_ydata(samples[id]["tem"][-100:])
 
-						plt.subplot(3, length, i + 1)
-						plt.plot(samples[id]["hum"][-100:])
+						# plt.subplot(3, length, i + 1)
+						line2.set_ydata(samples[id]["hum"][-100:])
 
-						plt.subplot(3, length, i + 2)
-						plt.plot(samples[id]["lum"][-100:])
+						# plt.subplot(3, length, i + 2)
+						line3.set_ydata(samples[id]["lum"][-100:])
+				fig.canvas.draw()
 
-				plt.show()
+				# plt.show()
 
 				# fig.canvas.draw()
 				# image = np.fromstring(fig.canvas.tostring_rgb(), dtype=np.uint8, sep='')
