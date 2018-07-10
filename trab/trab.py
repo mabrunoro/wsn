@@ -48,7 +48,7 @@ def main(ip='192.168.100.112',pn=44000):
 			data = sck.recv(1)
 			data = sck.recv(16)
 			if(len(data) != 1):
-				# print(len(data))
+				print(len(data))
 				recv_data = struct.unpack(">BHHBBBHHHH", data)
 				c = convert(recv_data)
 				# [('header', 0), ('daddr', 65535), ('lsaddr', 1), ('mlen', 8), ('gid', 34), ('hid', 1), ('nid', 1), ('temp', 27.729), ('hum', 48.286), ('lum', 14)]
